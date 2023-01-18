@@ -1,9 +1,10 @@
 package org.example;
 
 
+import interfaces.Authentication;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class User{
 
@@ -16,6 +17,8 @@ public class User{
 
     private LocalDateTime lastTimeActive;
 
+
+    Authentication executer;
 
     public User(){
 
@@ -32,15 +35,25 @@ public class User{
 
     }
 
-    public void LogIn(){
-        System.out.println(this.username+" login using username and password");
+    public void setExecuter(Authentication executer){
+        this.executer=executer;
 
     }
 
+    public void LogIn(){
+
+        System.out.print(username);
+        executer.makeAuthorization();
+
+    }
+
+
     public void LogOut() throws InterruptedException {
+        executer.cleaningResources();
+        System.out.println(username+" "+"Logged out");
         Thread.sleep(1000);
         this.lastTimeActive =LocalDateTime.now();
-        System.out.println(this.username+ " logged out");
+
 
     }
 
